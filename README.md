@@ -15,8 +15,8 @@
 	<a href="#">
 		<img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" alt="VS Code" />
 	</a>
-	<a href="https://github.com/TutoDS/nlw05-react/stargazers">
-    	<img alt="Stargazers" src="https://img.shields.io/github/stars/TutoDS/nlw05-react?style=for-the-badge">
+	<a href="https://github.com/TutoDS/micro-frontends/stargazers">
+    	<img alt="Stargazers" src="https://img.shields.io/github/stars/TutoDS/micro-frontends?style=for-the-badge">
 	</a>
 </div>
 
