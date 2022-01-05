@@ -1,4 +1,5 @@
 import Counter from 'counter/Counter';
+import Quote from 'quote/Quote';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
@@ -10,6 +11,8 @@ const App = () => (
 		<div>Language: TypeScript</div>
 		<div>CSS: Tailwind</div>
 		<Counter />
+
+		<Quote />
 	</div>
 );
 ReactDOM.render(<App />, document.getElementById('app'));
