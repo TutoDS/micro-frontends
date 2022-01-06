@@ -5,14 +5,12 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 
 const App = () => (
-	<div className='mt-10 text-3xl mx-auto max-w-6xl'>
-		<div>Name: host</div>
-		<div>Framework: react</div>
-		<div>Language: TypeScript</div>
-		<div>CSS: Tailwind</div>
-		<Counter />
+	<>
+		<div className='flex gap-4 justify-center items-cente my-4 w-[50%] mx-auto'>
+			<Counter />
 
-		<Quote />
-	</div>
+			<Quote className={''} />
+		</div>
+	</>
 );
 ReactDOM.render(<App />, document.getElementById('app'));
