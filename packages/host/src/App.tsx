@@ -1,4 +1,5 @@
 import Counter from 'counter/Counter';
+import Header from 'header/default';
 import Quote from 'quote/Quote';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,7 +7,9 @@ import './index.scss';
 
 const App = () => (
 	<>
-		<div className='flex gap-4 justify-center items-cente my-4 w-[50%] mx-auto'>
+		<Header />
+
+		<div className='flex gap-8 justify-center items-center mt-4 bg-light-500 w-[50%] mx-auto'>
 			<Counter />
 
 			<Quote className={''} />

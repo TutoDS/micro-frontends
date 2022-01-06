@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { ImQuotesLeft } from 'react-icons/im';
 import './index.scss';
-import { QuoteResponseType, QuoteType } from './shared/@types/QuoteResponse';
+import { QuoteResponseType } from './shared/@types/QuoteResponse';
 import quoteApi from './shared/services/quoteApi';
 
 const Loading = () => (
-	<div
-		className={
-			'bg-black bg-opacity-75 absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center'
-		}
-	>
+	<div className={'absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center'}>
 		<svg
-			className={'animate-spin -ml-1 mr-3 h-[75px] w-[75px] text-white'}
+			className={'animate-spin -ml-1 mr-3 h-[75px] w-[75px] text-purple-600'}
 			xmlns='http://www.w3.org/2000/svg'
 			fill='none'
 			viewBox='0 0 24 24'
@@ -38,59 +34,62 @@ type Props = {
 };
 
 const Quote = ({ className, ...props }: Props) => {
-	const [quote, setQuote] = useState<QuoteType>({
-		text: '',
+	const [quote, setQuote] = useState<{ content: string; author: string }>({
+		content: '',
 		author: ''
 	});
 
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
+	// Get Quote
 	useEffect(() => {
-		setIsLoading(true);
+		const getQuote = () => {
+			quoteApi
+				.get<QuoteResponseType>(`random`, {
+					params: {
+						tags: ['technology', 'famous-quotes', 'inspirational'].join('|')
+					}
+				})
+				.then(({ data }) => {
+					setQuote({
+						content: data.content,
+						author: data.author
+					});
 
-		quoteApi
-			.get<QuoteResponseType>(`/qod`, {
-				params: {
-					language: 'en'
-				}
-			})
-			.then(({ data }) => {
-				setQuote({
-					text: data.contents.quotes[0].quote,
-					author: data.contents.quotes[0].author
-				});
-			});
+					setIsLoading(false);
+				})
+				.catch((error) => {});
+		};
 
-		setIsLoading(false);
+		getQuote();
 
-		// Clear values on states
+		// Clear quote
 		return () => {
-			setIsLoading(false);
-			setQuote({
-				text: '',
-				author: ''
-			});
+			setQuote({ author: '', content: '' });
+			setIsLoading(true);
 		};
 	}, []);
-
-	if (isLoading) {
-		return <Loading />;
-	}
 
 	return (
 		<div
 			{...props}
-			className={`flex flex-col gap-2 border-l-4 border-purple-400 px-4 ${className || ''}`}
+			className={`flex flex-col gap-2 border-l-4 border-purple-400 px-4 ${
+				className || ''
+			} relative ${isLoading && 'min-w-[200px] min-h-[200px]'}`}
 		>
+			{isLoading && <Loading />}
+
 			<ImQuotesLeft className={'text-purple-400 text-4xl'} />
 
-			<p className={'font-serif text-[24px]'}>{quote.text}</p>
+			{!isLoading && (
+				<>
+					<p className={'font-serif text-[24px]'}>{quote.content}</p>
 
-			<div className='text-300 text-[16px]'>{quote.author}</div>
+					<div className='text-300 text-[16px]'>{quote.author}</div>
+				</>
+			)}
 		</div>
 	);
 };
-
-// ReactDOM.render(<Quote />, document.getElementById('app'));
 
 export default Quote;

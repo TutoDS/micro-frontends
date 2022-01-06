@@ -1,15 +1,10 @@
 export type QuoteResponseType = {
-	success: { total: number };
-
-	contents: {
-		quotes: {
-			quote: string;
-			author: string;
-		}[];
-	};
-};
-
-export type QuoteType = {
-	text: string;
+	id?: string;
+	tags?: string[];
+	content: string;
 	author: string;
+	authorSlug?: string;
+	length?: number;
+	dateAdded?: Date;
+	dateModified?: Date;
 };
